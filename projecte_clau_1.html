@@ -53,8 +53,8 @@
         }
 
         div {
-            padding: 0.3rem;
-            border: 1px solid #ccc;
+            padding: 0.2rem;
+            border: 0px solid #ccc;
             font-family: sans-serif;
         }
 
@@ -112,17 +112,21 @@
         }
         div .job-company{
             background-color: rgb(28, 95, 97);
+            flex-grow: 4;
         }
         div .job-company-text{
             color: cornsilk;
-            font-size: 1rem;
-            width: 30rem;
+            font-size: 1.4rem;
         }
-        .contianer-row{
+        .divsmallphoto{
+            width: 7rem;
+        }
+        .container-row{
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             align-items: stretch; 
+            height: 4rem;
         }
     </style>
 </head>
@@ -179,14 +183,14 @@
             <div id="experience">
                 <div class="company">
                     <div class="container-row">
-                        <div class="job-company">
-                            <p class="job-company-text">Hewlett Packard</p>
-                        </div>
-                        <div>
+                        <div class="divsmallphoto">
                             <figure class="smallphoto"
                             style="background-image:url(data:image/png;base64,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)">
                             </figure>
                         </div>
+                        <div class="job-company">
+                            <p class="job-company-text">Hewlett Packard</p>
+                        </div> 
                     </div>
                     <div class="job">
                         <p class="job-rank">
@@ -221,14 +225,15 @@
                 </div>
                 <div class="company">
                     <div class="container-row">
-                        <div class="job-company">
-                            <p class="job-company-text">Leitat</p>
-                        </div>   
-                        <div>
+                        <div class="divsmallphoto">
                             <figure class="smallphoto"
                                 style="background-image:url(https://media-exp1.licdn.com/dms/image/C560BAQHcVlcnabuDjQ/company-logo_200_200/0?e=2159024400&v=beta&t=DG0lO4FIqY367xJG7WnjGYCgOOOPgTpi9gHbn1zjESU)">
                             </figure>
                         </div>
+                        <div class="job-company">
+                            <p class="job-company-text">Leitat</p>
+                        </div>   
+                        
                     </div>
                     <div class="job">
                         <p class="job-rank">
