@@ -13,7 +13,38 @@
     <meta name="description" content="Curriculum Niels Sanchez">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="jquery.scrollUp.js"></script>
+    <script>
+        $(function () {
+        $.scrollUp({
+        scrollName: 'scrollUp',      // Element ID
+        scrollDistance: 300,         // Distance from top/bottom before showing element (px)
+        scrollFrom: 'top',           // 'top' or 'bottom'
+        scrollSpeed: 300,            // Speed back to top (ms)
+        easingType: 'linear',        // Scroll to top easing (see http://easings.net/)
+        animation: 'fade',           // Fade, slide, none
+        animationSpeed: 200,         // Animation speed (ms)
+        scrollTrigger: false,        // Set a custom triggering element. Can be an HTML string or jQuery object
+        scrollTarget: false,         // Set a custom target element for scrolling to. Can be element or number
+        scrollText: 'Scroll to top', // Text for element, can contain HTML
+        scrollTitle: false,          // Set a custom <a> title if required.
+        scrollImg: true,            // Set true to use image
+        activeOverlay: false,        // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+        zIndex: 2147483647           // Z-Index for the overlay
+    });
+});
+    </script>
     <style>
+        #scrollUp {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background: url("up.PNG");
+        background-size: cover;
+        border-radius: 50%;
+        }
         #intro {
             text-align: center;
             background-color: slategray;
@@ -44,7 +75,6 @@
         }
 
         h5 {
-            text-decoration: underline;
             font-size: 1rem;
         }
 
@@ -85,6 +115,13 @@
             width: 50rem;
         }
 
+        #skills {
+            padding: 0, 3rem;
+            border: solid steelblue;
+            border-width: 4px 0;
+            width: 50rem;
+        }
+
         .container {
             display: flex;
             flex-direction: column;
@@ -120,6 +157,7 @@
         div .job-company{
             background-color: rgb(28, 95, 97, 0.7);
             flex-grow: 4;
+            border-radius: 1rem;
         }
         div .job-company-text{
             color: cornsilk;
@@ -134,6 +172,28 @@
             justify-content: flex-start;
             align-items: stretch; 
             height: 4rem;
+        }
+        .click{
+            background: #eee;
+        }
+        a[href]{
+            text-decoration: none;
+            display: block;
+            background:#ddd;
+            line-height: 5 rem;
+            padding: 1rem 1rem 1rem 1.5rem;
+            color: steelblue;
+            font-weight: bold;
+        }
+        .sections{
+            margin: 0rem 3rem;
+            display: none;
+        }
+        .sections:target{
+            display: block;
+        }
+        footer{
+            background-color: slategray;
         }
     </style>
 </head>
@@ -178,8 +238,9 @@
                 </p>
             </div>
             <nav id="links">
-                <a href="https://www.linkedin.com/in/nielssanchez/">Linkedin</a>
-                <a href="https://github.com/nielshub">Github</a>
+                <a style = "display:inline;background-color: white;" href="https://www.linkedin.com/in/nielssanchez/">Linkedin</a>
+                <a style = "display:inline;background-color: white;" href="https://github.com/nielshub">Github</a>
+                <a style = "display:inline;background-color: white;" href="niels.sanchez@gmail.com">Gmail</a>
             </nav>
         </div>
     </section>
@@ -323,7 +384,102 @@
     </section>
     <!-- SKILLS -->
     <section>
+        <h4 class="uppercase">Skills</h4>
+            <div class="container">
+                <div id="skills">
+                    <div class="click">
+                        <a href="#section-1">Code lenguages</a>
 
+                            <table id="section-1" class="sections">
+                                <tr>
+                                    <th>Lenguage</th><th>Level</th>
+                                </tr>
+                                <tr>
+                                    <td>C++</td><td>Medium</td>
+                                </tr>
+                                <tr>
+                                    <td>Fortran</td><td>Medium</td>
+                                </tr>
+                                <tr>
+                                    <td>Python</td><td>Low</td>
+                                </tr>
+                                <tr>
+                                    <td>Matlab</td><td>High</td>
+                                </tr>
+                                <tr>
+                                    <td>TCL</td><td>High</td>
+                                </tr>
+                            </table>
+
+                        <a href="#section-2">CAD programs</a>
+
+                            <table id="section-2" class="sections">
+                                <tr>
+                                    <th>Program</th><th>Level</th>
+                                </tr>
+                                <tr>
+                                    <td>PTC direct modeling</td><td>Expert</td>
+                                </tr>
+                                <tr>
+                                    <td>Solid works</td><td>Medium</td>
+                                </tr>
+                                <tr>
+                                    <td>AutoCAD</td><td>Medium</td>
+                                </tr>
+                                <tr>
+                                    <td>SketchUp</td><td>Medium</td>
+                                </tr>
+                            </table>
+
+                        <a href="#section-3">General skills</a>
+
+                            <table id="section-3" class="sections">
+                                <tr>
+                                    <th>Skill</th><th>Level</th>
+                                </tr>
+                                <tr>
+                                    <td>Innovation</td><td>High</td>
+                                </tr>
+                                <tr>
+                                    <td>Commitement</td><td>High</td>
+                                </tr>
+                                <tr>
+                                    <td>Team work</td><td>High</td>
+                                </tr>
+                                <tr>
+                                    <td>Communication</td><td>Medium</td>
+                                </tr>
+                                <tr>
+                                    <td>Persuasive</td><td>Medium</td>
+                                </tr>
+                            </table>
+
+                        <a href="#section-4">Lenguage</a>
+
+                            <table id="section-4" class="sections">
+                                <tr>
+                                    <th>Lenguage</th><th>Level</th>
+                                </tr>
+                                <tr>
+                                    <td>English</td><td>High</td>
+                                </tr>
+                                <tr>
+                                    <td>Dutch</td><td>High</td>
+                                </tr>
+                                <tr>
+                                    <td>Spanish</td><td>High</td>
+                                </tr>
+                                <tr>
+                                    <td>Catalan</td><td>High</td>
+                                </tr>
+                                <tr>
+                                    <td>German</td><td>Medium</td>
+                                </tr>
+                            </table>
+
+                    </div>
+                </div>
+            </div>
     </section>
     <!-- ACHIEVMENTS -->
     <section>
@@ -335,7 +491,9 @@
     </section>
     <!-- FOOTER -->
     <footer>
-
+        <div>
+            <p style="text-align: center;color:whitesmoke">CV project | Resume 2020. Designed by Niels Sanchez</p>
+        </div>
     </footer>
 </body>
 
