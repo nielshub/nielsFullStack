@@ -8,14 +8,14 @@
     border-radius: 50%;
     }
     header{
-        background-color: slategray;
+        background-color: red;
         margin: 0rem;
-        color: floralwhite;
+        color: black;
         font-weight: bold;
     }
     #intro {
         text-align: center;
-        background-color: slategray;
+        background-color: red;
         margin: 0rem;
     }
 
@@ -162,5 +162,5 @@
         display: block;
     }
     footer{
-        background-color: slategray;
+        background-color: red;
     }

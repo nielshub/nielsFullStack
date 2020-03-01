@@ -12,7 +12,8 @@
     <title>Curriculum Niels Sanchez</title>
     <meta name="description" content="Curriculum Niels Sanchez">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style1.css">
+    <link type="text/css" href="style1.css" rel="stylesheet" id="linkestilo">
+    <!--<link rel="stylesheet" href="style1.css">-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="jquery.scrollUp.js"></script>
     <script>
@@ -39,11 +40,26 @@
 
 <body>
         <header>
+            <div>
+            <p>CLICK FOR STYLE CHANGE TO RED =><span class="clickme">Click me!</span></p>
+            <script>
+                const clickme1 = document.querySelector('.clickme');
+                clickme1.addEventListener('click', (event) => {
+                        document.getElementById("linkestilo").href = "style2.css";
+                        clickme1.innerText = style1;
+                })
+            </script>
+            </div>
             <!--ADD HEADER-->
-            <nav id="links">
-                <a style = "display:inline;background-color: slategray; font-family: monospace; color: whitesmoke;" href="#style1">Style 1</a>
-                <a style = "display:inline;background-color: slategray; font-family: monospace; color: whitesmoke;" href="#style2">Style 2</a>
-            </nav>
+            <!--<select name="weapon" required>
+                <option value="">Select a style
+                <option value="style1">Style 1
+                <option value="style2">Style 2
+                </select> -->
+            <!--<nav id="links">
+                <a style = "display:inline;background-color: slategray; font-family: monospace; color: whitesmoke;" href = "style1.css" class="linkstyle">Style 1</a>
+                <a style = "display:inline;background-color: slategray; font-family: monospace; color: whitesmoke;" href = "style2.css" class="linkstyle">Style 2</a>
+            </nav>-->
         </header>
     <div id="intro">
         <section>
@@ -336,6 +352,7 @@
             <p style="text-align: center;color:whitesmoke">CV project | Resume 2020. Designed by Niels Sanchez</p>
         </div>
     </footer>
+    
 </body>
 
 </html>
