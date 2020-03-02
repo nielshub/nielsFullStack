@@ -45,9 +45,13 @@
           CLICK FOR STYLE CHANGE TO RED =><span class="clickme">Click me!</span>
         </p>
         <script>
+          let styleNum = 1;
+          const link = document.getElementById("linkestilo");
           const clickme1 = document.querySelector(".clickme");
+          
           clickme1.addEventListener("click", event => {
-            document.getElementById("linkestilo").href = "style2.css";
+            styleNum = styleNum === 1 ? 2 : 1;
+            link.href = `style${styleNum}.css`;
             clickme1.innerText = style1;
           });
         </script>
