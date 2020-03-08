@@ -413,10 +413,11 @@
       removeChildren(CardZone);
       removeChildren(CardTable);
 
-      let gameplayers = Number(players.value);
+      
 
       form.addEventListener("submit", event => {
         event.preventDefault();
+        let gameplayers = Number(players.value);
         removeChildren(CardZone);
         removeChildren(CardTable);
         removeChildren(Results);
@@ -471,6 +472,7 @@
 
       formCheck.addEventListener("submit", event => {
         event.preventDefault();
+        let gameplayers = Number(players.value);
         removeChildren(CardTable);
         removeChildren(Results);
         for (let i = 0; i < 5; i++) {
