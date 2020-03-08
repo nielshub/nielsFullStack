@@ -190,8 +190,9 @@
           }
           if (reps[i] === 3) {
             rank.push(4);
-            if (doublepair === 1) {
+            if (doubletrio === 1) {
               trio[1] = number[i];
+              rank.push(7); // If double trio then has FULL
             }
             doubletrio++;
             trio[0] = number[i];
