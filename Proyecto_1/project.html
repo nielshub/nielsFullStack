@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas Demo</title>
+    <style>
+        canvas {
+            border: 10px solid gray;
+        }
+
+        div {
+            width: 300px;
+            height: 200px;
+            margin-right: 200px;
+            background-color: blanchedalmond;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <p>CLICKEA EL RECTANGULO Y NO FALLES!</p>
+    <div id="area1">
+        <span class="coords">?, ?</span>
+    </div>
+    <div id="area2" style="background-color: rgb(82, 82, 119);">
+        <span class="valor" style="background-color: rgb(61, 61, 105)">INTENTALO</span>
+    </div>
+    <canvas id="canvas" />
+
+    <script>
+        // Get the canvas element, change its size.
+        // The size is changed here because CSS will "stretch" the pixels...
+        const canvas = document.querySelector("canvas");
+        canvas.width = 480;
+        canvas.height = 480;
+
+        // Get the 2D context first
+        const ctx = canvas.getContext("2d");
+
+    
+            // Draw a red/black chessboard
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    ctx.fillStyle = (i + j) % 2 ? "red" : "black";
+                    ctx.fillRect(0 + i * 60, 0 + j * 60, 60, 60);
+                }
+            }
+
+            // Paint some text
+            ctx.fillStyle = "white";
+            ctx.font = "60px monospace";
+            const text = "ATRAPALO";
+            let {
+                width,
+                actualBoundingBoxAscent: height
+            } = ctx.measureText(text);
+            ctx.fillText(text, 230 - width / 2, 240 + height / 2);
+
+            // Paint random square blue
+            ctx.fillStyle = "blue";
+            var randX=Math.random() * 7 * 60
+            var randY=Math.random() * 7 * 60
+            ctx.fillRect(randX,randY , 60, 60);
+        
+
+
+        const coords1 = document.querySelector('#area1 .coords');
+        const valor1 = document.querySelector('#area2 .valor');
+        document.getElementById('canvas').onclick = (e) => {
+            coords1.innerText = `${e.offsetX}, ${e.offsetY}`;
+            var x = `${e.offsetX}`
+            var y = `${e.offsetY}`
+            // Check if OK
+            if (x>randX && x<randX+60 && y>randY && y<randY+60){
+                valor1.innerText = "Done"
+            }else{
+                valor1.innerText = "Wrong"
+            }
+
+            // Draw a red/black chessboard
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    ctx.fillStyle = (i + j) % 2 ? "red" : "black";
+                    ctx.fillRect(0 + i * 60, 0 + j * 60, 60, 60);
+                }
+            }
+            // Paint some text
+            ctx.fillStyle = "white";
+            ctx.font = "60px monospace";
+            const text = "C'mon";
+            let {
+                width,
+                actualBoundingBoxAscent: height
+            } = ctx.measureText(text);
+            ctx.fillText(text, 230 - width / 2, 240 + height / 2);
+            // Paint random square blue
+            randX=(Math.random() * 7) * 60
+            randY=(Math.random() * 7)* 60
+            ctx.fillStyle = "blue";
+            ctx.fillRect(randX,randY , 60, 60);
+        }
+
+
+
+    </script>
+</body>
+
+</html>
