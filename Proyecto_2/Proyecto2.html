@@ -1,10 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
-  <!--<![endif]-->
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -57,12 +52,12 @@
       .CardShowdown {
         padding: 1rem;
       }
-      #top{
-          display: flex;
-          flex-direction: row;
-          justify-content: space-around;
+      #top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
       }
-      #legend{
+      #legend {
         text-align: center;
         border: 0.5px solid black;
       }
@@ -89,25 +84,32 @@
         <div>
           <table id="legend">
             <tr>
-              <td>Hand</td><td>High Card</td><td>Pair</td><td>Double Pair</td><td>Trio</td><td>Ladder</td><td>Color</td><td>Full</td><td>Poker</td>
+              <td>Hand</td>
+              <td>High Card</td>
+              <td>Pair</td>
+              <td>Double Pair</td>
+              <td>Trio</td>
+              <td>Ladder</td>
+              <td>Color</td>
+              <td>Full</td>
+              <td>Poker</td>
             </tr>
             <tr>
-              <td>Value</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td>
+              <td>Value</td>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+              <td>5</td>
+              <td>6</td>
+              <td>7</td>
+              <td>8</td>
             </tr>
           </table>
         </div>
       </div>
     </div>
     <main>
-      <!-- 
-    Numero de jugadores
-    Boton de start
-    Crear valores en esas cartas
-    Dibujar cartas
-    Enseñar flop
-    Encontrar relaciones de cartas que aporten valor
-    Decidir el orden de los jugadores
-    -->
       <p style="text-align: center;">PLAYERS CARDS</p>
       <div id="CardZone"></div>
       <p style="text-align: center;">TABLE CARDS</p>
@@ -142,12 +144,8 @@
 
       const getRandomInt = (min, max, ArrayOfCards) => {
         let Card = Math.floor(Math.random() * (max - min)) + min;
-        for (let i = 0; i < ArrayOfCards.length; i++) {
-          if (ArrayOfCards[i] === Card) {
-            while (ArrayOfCards[i] === Card) {
-              Card = Math.floor(Math.random() * (max - min)) + min;
-            }
-          }
+        while (ArrayOfCards.includes(Card)) {
+          Card = Math.floor(Math.random() * (max - min)) + min;
         }
         return Card;
       };
@@ -425,8 +423,6 @@
       removeChildren(CardZone);
       removeChildren(CardTable);
 
-      
-
       form.addEventListener("submit", event => {
         event.preventDefault();
         let gameplayers = Number(players.value);
@@ -489,6 +485,7 @@
         removeChildren(Results);
         for (let i = 0; i < 5; i++) {
           CardShowup[i] = getRandomInt(0, 51, Cards);
+          Cards.push(CardShowup[i]);
           let CardShow = document.createElement("div");
           CardShow.className = "CardShowdown";
           CardShow.innerHTML = `
