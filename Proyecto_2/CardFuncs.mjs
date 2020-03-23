@@ -1,6 +1,6 @@
 //------------------------------------------------------
 //Get Poker score with 2 hand cards and the table cards
-export const CalculateScore = (Player, CardTable) => {
+export const CalculateScore = (Card1, Card2, CardTable) => {
   let ScoreCards = [];
   let ScoreCardsFamily = [];
   let count = {};
@@ -11,6 +11,7 @@ export const CalculateScore = (Player, CardTable) => {
   let rank = [];
   let pair = [];
   let trio = [];
+  let full = [];
   let boolLadder = false;
   //Join player ScoreCards hand table ScoreCards
   for (let i = 0; i < CardTable.length + 1; i++) {
@@ -18,10 +19,10 @@ export const CalculateScore = (Player, CardTable) => {
       ScoreCards[i] = TranslatorCard.CardValue(CardTable[i]);
       ScoreCardsFamily[i] = TranslatorCard.FamilyEnglish(CardTable[i]);
     } else {
-      ScoreCards[i] = TranslatorCard.CardValue(Player.Card1);
-      ScoreCardsFamily[i] = TranslatorCard.FamilyEnglish(Player.Card1);
-      ScoreCards[i + 1] = TranslatorCard.CardValue(Player.Card2);
-      ScoreCardsFamily[i + 1] = TranslatorCard.FamilyEnglish(Player.Card2);
+      ScoreCards[i] = TranslatorCard.CardValue(Card1);
+      ScoreCardsFamily[i] = TranslatorCard.FamilyEnglish(Card1);
+      ScoreCards[i + 1] = TranslatorCard.CardValue(Card2);
+      ScoreCardsFamily[i + 1] = TranslatorCard.FamilyEnglish(Card2);
     }
   }
   //Score para Dobles / Pareja de Dobles / Trio / Poker
@@ -30,7 +31,7 @@ export const CalculateScore = (Player, CardTable) => {
   });
   let number = Object.keys(count);
   let reps = Object.values(count);
-  let highcard = Math.max(number);
+  let highcard = getMaxOfArray(number);
   rank.push(1);
   for (let i = 0; i < number.length; i++) {
     if (reps[i] === 2) {
@@ -81,10 +82,12 @@ export const CalculateScore = (Player, CardTable) => {
   const reducer = (accumulator, currentValue, index, array) =>
     accumulator - (currentValue + 1) + array[index - 1];
   //Check only 5 ScoreCards for ladder
+  let LadderScore = 0;
   if (CardNumbers.length === 5) {
     let Ladder = CardNumbers.reduce(reducer) - CardNumbers[0];
     if (Ladder === 0) {
       boolLadder = true;
+      LadderScore = getMaxOfArray(CardNumbers);
     }
   }
   if (CardNumbers.length === 6) {
@@ -95,6 +98,11 @@ export const CalculateScore = (Player, CardTable) => {
     let LLadder = LowLadder.reduce(reducer) - LowLadder[0];
     if (TLadder === 0 || LLadder === 0) {
       boolLadder = true;
+      if (TLadder === 0) {
+        LadderScore = getMaxOfArray(TopLadder);
+      } else {
+        LadderScore = getMaxOfArray(LowLadder);
+      }
     }
   }
   if (CardNumbers.length === 7) {
@@ -107,12 +115,22 @@ export const CalculateScore = (Player, CardTable) => {
     let MLadder = MidLadder.reduce(reducer) - MidLadder[0];
     if (TLadder === 0 || LLadder === 0 || MLadder === 0) {
       boolLadder = true;
+      if (TLadder === 0) {
+        LadderScore = getMaxOfArray(TopLadder);
+      }
+      if (MLadder === 0) {
+        LadderScore = getMaxOfArray(MidLadder);
+      } 
+      else {
+        LadderScore = getMaxOfArray(LowLadder);
+      }
     }
   }
   if (boolLadder) {
     rank.push(5);
   }
   //Count color
+  let colorScore = 0;
   ScoreCardsFamily.forEach(function(i) {
     countF[i] = (countF[i] || 0) + 1;
   });
@@ -120,8 +138,32 @@ export const CalculateScore = (Player, CardTable) => {
   let repsF = Object.values(countF);
   if (Math.max(repsF) > 4) {
     rank.push(6);
+    colorScore = getMaxOfArray(numberF);
   }
-  return rank;
+  let ScoreValue = 0;
+  switch(getMaxOfArray(rank)){
+    case 1: ScoreValue = highcard;
+    break;
+    case 2: ScoreValue = getMaxOfArray(pair);
+    break;
+    case 3: ScoreValue = getMaxOfArray(pair);
+    break;
+    case 4: ScoreValue = getMaxOfArray(trio);
+    break;
+    case 5: ScoreValue = LadderScore;
+    break;
+    case 6: ScoreValue = colorScore;
+    break;
+    case 7: ScoreValue = getMaxOfArray(full.concat(pair,trio));
+    break;
+    case 8: ScoreValue = poker;
+    break;
+  }
+  let Score = {
+    rank: rank,
+    ScoreValue: ScoreValue
+  }
+  return Score
 };
 //----------------------------------------------------------
 //Random number without repeating a card already in the game
@@ -286,4 +328,9 @@ export const removeChildren = element => {
   while (element.firstElementChild) {
     element.firstElementChild.remove();
   }
+};
+//---------------------------------------------
+//Get MAX
+export const getMaxOfArray = numArray => {
+  return Math.max.apply(null, numArray);
 };

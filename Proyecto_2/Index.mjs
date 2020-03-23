@@ -18,6 +18,7 @@ let players = document.querySelector('input[name="players"]');
 let CardZone = document.querySelector("#CardZone");
 let CardTable = document.querySelector("#CardTable");
 let checkwinner = document.querySelector("#checkwinner");
+let Winner = document.querySelector("#Winner");
 let Player = [];
 let Cards = [];
 let CardShowup = [];
@@ -30,6 +31,19 @@ class ClassPlayer {
     Cards.push(this.Card1);
     this.Card2 = CardFuncs.getRandomInt(0, 51, Cards);
     Cards.push(this.Card2);
+    this.Rankscore = 0;
+    this.Valuescore = 0;
+    this.TotalScore = 0;
+  }
+  Result(CardShowTable) {
+    let Score = CardFuncs.CalculateScore(
+      this.Card1,
+      this.Card2,
+      CardShowTable
+    );
+    this.Rankscore = CardFuncs.getMaxOfArray(Score.rank);
+    this.Valuescore = Score.ScoreValue;
+    this.TotalScore = this.Rankscore * 100 + this.Valuescore;
   }
 }
 
@@ -78,13 +92,7 @@ form.addEventListener("submit", event => {
                     height="150"
                     width="100">
                 </div>
-            </div>
-            <p>Card 1 -> ${CardFuncs.TranslatorCard.CardNumero(
-              Player[i].Card1
-            )} de ${CardFuncs.TranslatorCard.Family(Player[i].Card1)}</p>
-            <p>Card 2 -> ${CardFuncs.TranslatorCard.CardNumero(
-              Player[i].Card2
-            )} de ${CardFuncs.TranslatorCard.Family(Player[i].Card2)}</p>`;
+            </div>`;
     CardFuncs.addCards(CardZone, CardHand);
   }
   for (let i = 0; i < 5; i++) {
@@ -106,6 +114,8 @@ formCheck.addEventListener("submit", event => {
   event.preventDefault();
   CardFuncs.removeChildren(CardTable);
   CardFuncs.removeChildren(Results);
+  CardFuncs.removeChildren(Winner);
+  CardShowTable = [];
   for (let i = 0; i < 5; i++) {
     let CardShow = document.createElement("div");
     CardShow.className = "CardShowdown";
@@ -123,19 +133,55 @@ formCheck.addEventListener("submit", event => {
     CardShowTable.push(CardShowup[i].Card);
   }
   for (let i = 0; i < Player.length; i++) {
+    Player[i].Result(CardShowTable);
+    console.log(Player[i].Rankscore, Player[i].Valuescore, Player[i].TotalScore)
+    let HandValue = "";
+    switch (Player[i].Rankscore) {
+      case 1:
+        HandValue = "Highcard";
+        break;
+      case 2:
+        HandValue = "Pair";
+        break;
+      case 3:
+        HandValue = "Double Pair";
+        break;
+      case 4:
+        HandValue = "Trio";
+        break;
+      case 5:
+        HandValue = "Ladder";
+        break;
+      case 6:
+        HandValue = "Color";
+        break;
+      case 7:
+        HandValue = "Full House";
+        break;
+      case 8:
+        HandValue = "Poker";
+        break;
+    }
     let HandResult = document.createElement("div");
     HandResult.className = "CardHand";
     HandResult.innerHTML = `
             <div>
-            <p style="text-align: center;">Result for player ${
-              Player[i].name
-            }</p>
-            <p style="text-align: center;">${CardFuncs.CalculateScore(
-              Player[i],
-              CardShowTable
-            )}</p>
+            <p style="text-align: center;">Result for player ${Player[i].name}</p>
+            <p style="text-align: center;">${HandValue}</p>
             </div>
             `;
     CardFuncs.addCards(Results, HandResult);
   }
+  const PlayerWinner = Player.reduce(function(prev, current) {
+    return prev.TotalScore > current.TotalScore ? prev : current;
+  }); 
+  let WinnerResult = document.createElement("div");
+  WinnerResult.className = "WinnerHand";
+  WinnerResult.innerHTML = `
+            <div>
+            <p style="text-align: center;">Winner is ${PlayerWinner.name}</p>
+            <p style="text-align: center;">WINS with a ${PlayerWinner.Rankscore} which has a max Card Value of ${PlayerWinner.Valuescore}</p>
+            </div>
+            `;
+  CardFuncs.addCards(Winner, WinnerResult);
 });
