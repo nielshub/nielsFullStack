@@ -12,60 +12,34 @@
   </script>
   <body>
     <div id="top">
-      <div>
+      <div id="buttons">
         <form>
           <p>
-            <label>
-              Numero de jugadores
-              <input type="number" name="players" value="4" />
+            <label class="button" id="label" style="background-color:#f1bb4e">
+              Number of players
+              <input type="number" name="players" value="4"/>
             </label>
           </p>
-          <button>DEAL CARDS</button>
+          <button class="button" style="background-color:#f14e4e">DEAL CARDS</button>
         </form>
         <form>
-          <button id="checkwinner">CHECK WINNER</button>
+          <button class="button" style="background-color:#4e9af1">CHECK WINNER</button>
         </form>
       </div>
-      <div id="title"><h1>POKER GAME</h1></div>
-      <div>
-        <div>
-          <table id="legend">
-            <tr>
-              <td>Hand</td>
-              <td>High Card</td>
-              <td>Pair</td>
-              <td>Double Pair</td>
-              <td>Trio</td>
-              <td>Ladder</td>
-              <td>Color</td>
-              <td>Full</td>
-              <td>Poker</td>
-            </tr>
-            <tr>
-              <td>Value</td>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-            </tr>
-          </table>
-        </div>
+      <div><img src="/Poker_title_clean.PNG" height="150" width="300">
+      </div>
+      <div id="legenddiv">
+        <img id="legend" src="/Hand_ranking.PNG" height="150" width="600">
       </div>
     </div>
     <main>
-      <p style="text-align: center;">PLAYERS CARDS</p>
+      <p class="divide"><span class="separator" style="background-color:#4ef18f" >PLAYERS CARDS</span></p>
       <div id="CardZone"></div>
-      <p style="text-align: center;">TABLE CARDS</p>
-      <div id="CardTable">
-        <div class="CardShowdown"></div>
-      </div>
-      <p style="text-align: center;">RESULTS</p>
+      <p class="divide"><span class="separator" style="background-color:#4e9af1" >TABLE CARDS</span></p>
+      <div id="CardTable"></div>
+      <p class="divide"><span class="separator" style="background-color:#9a4ef1" >RESULTS</span></p>
       <div id="Results"></div>
-      <p style="text-align: center;">WINNER</p>
+      <p class="divide"><span class="separator" style="background-color:#f14ebd" >WINNER</span></p>
       <div id="Winner"></div>
     </main>
     <script type="module" src="Index.mjs"></script>

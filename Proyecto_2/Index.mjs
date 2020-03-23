@@ -17,7 +17,6 @@ let formCheck = document.forms[1];
 let players = document.querySelector('input[name="players"]');
 let CardZone = document.querySelector("#CardZone");
 let CardTable = document.querySelector("#CardTable");
-let checkwinner = document.querySelector("#checkwinner");
 let Winner = document.querySelector("#Winner");
 let Player = [];
 let Cards = [];
@@ -73,7 +72,7 @@ form.addEventListener("submit", event => {
     let CardHand = document.createElement("div");
     CardHand.className = "CardHand";
     CardHand.innerHTML = `
-          <p style="text-align: center;">Cards for player ${Player[i].name}</p>
+          <span class = "CardHandFont">Cards for player ${Player[i].name}</span>
           <div class = "Card2">
                 <div class="Card">
                     <img src="cartas/JPEG/${CardFuncs.TranslatorCard.CardNumber(
@@ -101,7 +100,7 @@ form.addEventListener("submit", event => {
     let CardShowdown = document.createElement("div");
     CardShowdown.className = "CardShowdown";
     CardShowdown.innerHTML = `
-            <div>
+            <div class = "bouncy" style="animation-delay:${i*0.07}s">
                 <img src="cartas/JPEG/Gray_back.jpg"
                 height="250"
                 width="150">
@@ -133,11 +132,13 @@ form.addEventListener("submit", event => {
         Player[i].Result(CardShowTable);
         let HandValue = CardFuncs.HandValueFunc(Player[i].Rankscore);
         let HandResult = document.createElement("div");
-        HandResult.className = "CardHand";
+        HandResult.className = "HandResult";
         HandResult.innerHTML = `
             <div>
-            <p style="text-align: center;">Result for player ${Player[i].name}</p>
-            <p style="text-align: center;">${HandValue}</p>
+            <p class = "CardHandFont">Result for player ${Player[i].name}</p>
+            <p class = "CardHandFont">${HandValue} of ${CardFuncs.TranslatorCard.CardNumber(
+          Player[i].Valuescore - 1
+        )}</p>
             </div>
             `;
         CardFuncs.addCards(Results, HandResult);
@@ -165,10 +166,10 @@ form.addEventListener("submit", event => {
       if (Tie === false) {
         WinnerResult.innerHTML = `
             <div>
-            <p style="text-align: center;">Winner is Player ${
+            <p class = "CardHandFont">Player ${
               PlayerWinner.name
-            }</p>
-            <p style="text-align: center;">WINS with a ${HandValueWinner} which has a max card value of ${CardFuncs.TranslatorCard.CardNumber(
+            } is winning</p>
+            <p class = "CardHandFont">WINNING with a ${HandValueWinner} which has a max card value of ${CardFuncs.TranslatorCard.CardNumber(
           PlayerWinner.Valuescore - 1
         )}</p>
             </div>
@@ -176,8 +177,8 @@ form.addEventListener("submit", event => {
       } else {
         WinnerResult.innerHTML = `
             <div>
-            <p style="text-align: center;">There is a TIE between players ${Tieindex}</p>
-            <p style="text-align: center;">The Tie is between the Hand ${HandValueWinner} with card value of ${CardFuncs.TranslatorCard.CardNumber(
+            <p class = "CardHandFont">There is a TIE between players ${Tieindex}</p>
+            <p class = "CardHandFont">The Tie is between the Hand ${HandValueWinner} with card value of ${CardFuncs.TranslatorCard.CardNumber(
           PlayerWinner.Valuescore - 1
         )}</p>
             </div>
@@ -218,13 +219,15 @@ formCheck.addEventListener("submit", event => {
     Player[i].Result(CardShowTable);
     let HandValue = CardFuncs.HandValueFunc(Player[i].Rankscore);
     let HandResult = document.createElement("div");
-    HandResult.className = "CardHand";
+    HandResult.className = "HandResult";
     HandResult.innerHTML = `
-            <div>
-            <p style="text-align: center;">Result for player ${Player[i].name}</p>
-            <p style="text-align: center;">${HandValue}</p>
-            </div>
-            `;
+        <div>
+        <p class = "CardHandFont">Result for player ${Player[i].name}</p>
+        <p class = "CardHandFont">${HandValue} of ${CardFuncs.TranslatorCard.CardNumber(
+      Player[i].Valuescore - 1
+    )}</p>
+        </div>
+        `;
     CardFuncs.addCards(Results, HandResult);
   }
   //Check who is the winner between all the players and check possible tie
@@ -250,10 +253,10 @@ formCheck.addEventListener("submit", event => {
   if (Tie === false) {
     WinnerResult.innerHTML = `
             <div>
-            <p style="text-align: center;">Winner is Player ${
+            <p class = "CardHandFont">Winner is Player ${
               PlayerWinner.name
             }</p>
-            <p style="text-align: center;">WINS with a ${HandValueWinner} which has a max card value of ${CardFuncs.TranslatorCard.CardNumber(
+            <p class = "CardHandFont">WINS with a ${HandValueWinner} which has a max card value of ${CardFuncs.TranslatorCard.CardNumber(
       PlayerWinner.Valuescore - 1
     )}</p>
             </div>
@@ -261,8 +264,8 @@ formCheck.addEventListener("submit", event => {
   } else {
     WinnerResult.innerHTML = `
             <div>
-            <p style="text-align: center;">There is a TIE between players ${Tieindex}</p>
-            <p style="text-align: center;">The Tie is between the Hand ${HandValueWinner} with card value of ${CardFuncs.TranslatorCard.CardNumber(
+            <p class = "CardHandFont">There is a TIE between players ${Tieindex}</p>
+            <p class = "CardHandFont">The Tie is between the Hand ${HandValueWinner} with card value of ${CardFuncs.TranslatorCard.CardNumber(
       PlayerWinner.Valuescore - 1
     )}</p>
             </div>
