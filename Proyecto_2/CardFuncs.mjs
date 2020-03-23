@@ -15,7 +15,7 @@ export const CalculateScore = (Card1, Card2, CardTable) => {
   let boolLadder = false;
   //Join player ScoreCards hand table ScoreCards
   for (let i = 0; i < CardTable.length + 1; i++) {
-    if (i < 5) {
+    if (i < CardTable.length) {
       ScoreCards[i] = TranslatorCard.CardValue(CardTable[i]);
       ScoreCardsFamily[i] = TranslatorCard.FamilyEnglish(CardTable[i]);
     } else {
@@ -139,7 +139,7 @@ export const CalculateScore = (Card1, Card2, CardTable) => {
     rank.push(6);
     colorScore = getMaxOfArray(numberF);
   }
-  let ScoreValue = 0;
+  let ScoreValue = 1;
   switch (getMaxOfArray(rank)) {
     case 1:
       ScoreValue = highcard;
