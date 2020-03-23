@@ -146,12 +146,14 @@ formCheck.addEventListener("submit", event => {
   });
   let Tie = false;
   let TieCount = 0;
-  let Tieindex = 0;
+  let Tieindex = [];
   Player.forEach((item, index) => {
     if (item.TotalScore === PlayerWinner.TotalScore) {
       ++TieCount;
-      TieCount === 1 ? (Tieindex = index) : (Tieindex = 0);
       TieCount > 1 ? (Tie = true) : (Tie = false);
+      for (let i = 0; i < Player.length; i++) {
+        TieCount === 1 + i ? (Tieindex[i] = index + 1) : 1;
+      }
     }
   });
   let HandValueWinner = CardFuncs.HandValueFunc(PlayerWinner.Rankscore);
@@ -172,8 +174,7 @@ formCheck.addEventListener("submit", event => {
     WinnerResult.innerHTML = `
             <div>
             <p style="text-align: center;">There is a TIE between players ${
-              Player[Tieindex].name
-            } and ${PlayerWinner.name}</p>
+              Tieindex}</p>
             <p style="text-align: center;">The Tie is between the Hand ${HandValueWinner} with card value of ${CardFuncs.TranslatorCard.CardNumber(
       PlayerWinner.Valuescore - 1
     )}</p>
