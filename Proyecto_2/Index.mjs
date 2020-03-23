@@ -36,11 +36,7 @@ class ClassPlayer {
     this.TotalScore = 0;
   }
   Result(CardShowTable) {
-    let Score = CardFuncs.CalculateScore(
-      this.Card1,
-      this.Card2,
-      CardShowTable
-    );
+    let Score = CardFuncs.CalculateScore(this.Card1, this.Card2, CardShowTable);
     this.Rankscore = CardFuncs.getMaxOfArray(Score.rank);
     this.Valuescore = Score.ScoreValue;
     this.TotalScore = this.Rankscore * 100 + this.Valuescore;
@@ -59,7 +55,7 @@ class TableCards {
 CardFuncs.removeChildren(CardZone);
 CardFuncs.removeChildren(CardTable);
 
-//Players button -> Deal cards to the players & add 5 unshown cards to the table
+//Players button -> Deal cards to the players && add 5 unshown cards to the table
 form.addEventListener("submit", event => {
   event.preventDefault();
   Cards = [];
@@ -109,7 +105,7 @@ form.addEventListener("submit", event => {
   }
 });
 
-//Check button -> Unshow 5 table cards & check the results for each player
+//Check button -> Unshow 5 table cards & check the results for each player and show the winner
 formCheck.addEventListener("submit", event => {
   event.preventDefault();
   CardFuncs.removeChildren(CardTable);
@@ -134,34 +130,7 @@ formCheck.addEventListener("submit", event => {
   }
   for (let i = 0; i < Player.length; i++) {
     Player[i].Result(CardShowTable);
-    console.log(Player[i].Rankscore, Player[i].Valuescore, Player[i].TotalScore)
-    let HandValue = "";
-    switch (Player[i].Rankscore) {
-      case 1:
-        HandValue = "Highcard";
-        break;
-      case 2:
-        HandValue = "Pair";
-        break;
-      case 3:
-        HandValue = "Double Pair";
-        break;
-      case 4:
-        HandValue = "Trio";
-        break;
-      case 5:
-        HandValue = "Ladder";
-        break;
-      case 6:
-        HandValue = "Color";
-        break;
-      case 7:
-        HandValue = "Full House";
-        break;
-      case 8:
-        HandValue = "Poker";
-        break;
-    }
+    let HandValue = CardFuncs.HandValueFunc(Player[i].Rankscore);
     let HandResult = document.createElement("div");
     HandResult.className = "CardHand";
     HandResult.innerHTML = `
@@ -174,14 +143,42 @@ formCheck.addEventListener("submit", event => {
   }
   const PlayerWinner = Player.reduce(function(prev, current) {
     return prev.TotalScore > current.TotalScore ? prev : current;
-  }); 
+  });
+  let Tie = false;
+  let TieCount = 0;
+  let Tieindex = 0;
+  Player.forEach((item, index) => {
+    if (item.TotalScore === PlayerWinner.TotalScore) {
+      ++TieCount;
+      TieCount === 1 ? (Tieindex = index) : (Tieindex = 0);
+      TieCount > 1 ? (Tie = true) : (Tie = false);
+    }
+  });
+  let HandValueWinner = CardFuncs.HandValueFunc(PlayerWinner.Rankscore);
   let WinnerResult = document.createElement("div");
   WinnerResult.className = "WinnerHand";
-  WinnerResult.innerHTML = `
+  if (Tie === false) {
+    WinnerResult.innerHTML = `
             <div>
-            <p style="text-align: center;">Winner is ${PlayerWinner.name}</p>
-            <p style="text-align: center;">WINS with a ${PlayerWinner.Rankscore} which has a max Card Value of ${PlayerWinner.Valuescore}</p>
+            <p style="text-align: center;">Winner is Player ${
+              PlayerWinner.name
+            }</p>
+            <p style="text-align: center;">WINS with a ${HandValueWinner} which has a max card value of ${CardFuncs.TranslatorCard.CardNumber(
+      PlayerWinner.Valuescore - 1
+    )}</p>
             </div>
             `;
+  } else {
+    WinnerResult.innerHTML = `
+            <div>
+            <p style="text-align: center;">There is a TIE between players ${
+              Player[Tieindex].name
+            } and ${PlayerWinner.name}</p>
+            <p style="text-align: center;">The Tie is between the Hand ${HandValueWinner} with card value of ${CardFuncs.TranslatorCard.CardNumber(
+      PlayerWinner.Valuescore - 1
+    )}</p>
+            </div>
+            `;
+  }
   CardFuncs.addCards(Winner, WinnerResult);
 });

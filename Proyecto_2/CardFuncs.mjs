@@ -120,8 +120,7 @@ export const CalculateScore = (Card1, Card2, CardTable) => {
       }
       if (MLadder === 0) {
         LadderScore = getMaxOfArray(MidLadder);
-      } 
-      else {
+      } else {
         LadderScore = getMaxOfArray(LowLadder);
       }
     }
@@ -141,29 +140,37 @@ export const CalculateScore = (Card1, Card2, CardTable) => {
     colorScore = getMaxOfArray(numberF);
   }
   let ScoreValue = 0;
-  switch(getMaxOfArray(rank)){
-    case 1: ScoreValue = highcard;
-    break;
-    case 2: ScoreValue = getMaxOfArray(pair);
-    break;
-    case 3: ScoreValue = getMaxOfArray(pair);
-    break;
-    case 4: ScoreValue = getMaxOfArray(trio);
-    break;
-    case 5: ScoreValue = LadderScore;
-    break;
-    case 6: ScoreValue = colorScore;
-    break;
-    case 7: ScoreValue = getMaxOfArray(full.concat(pair,trio));
-    break;
-    case 8: ScoreValue = poker;
-    break;
+  switch (getMaxOfArray(rank)) {
+    case 1:
+      ScoreValue = highcard;
+      break;
+    case 2:
+      ScoreValue = getMaxOfArray(pair);
+      break;
+    case 3:
+      ScoreValue = getMaxOfArray(pair);
+      break;
+    case 4:
+      ScoreValue = getMaxOfArray(trio);
+      break;
+    case 5:
+      ScoreValue = LadderScore;
+      break;
+    case 6:
+      ScoreValue = colorScore;
+      break;
+    case 7:
+      ScoreValue = getMaxOfArray(full.concat(pair, trio));
+      break;
+    case 8:
+      ScoreValue = poker;
+      break;
   }
   let Score = {
     rank: rank,
     ScoreValue: ScoreValue
-  }
-  return Score
+  };
+  return Score;
 };
 //----------------------------------------------------------
 //Random number without repeating a card already in the game
@@ -333,4 +340,36 @@ export const removeChildren = element => {
 //Get MAX
 export const getMaxOfArray = numArray => {
   return Math.max.apply(null, numArray);
+};
+//---------------------------------------------
+//Translate Rank into a HandValue in Poker Game
+export const HandValueFunc = Rank => {
+  let HandValue = "";
+  switch (Rank) {
+    case 1:
+      HandValue = "Highcard";
+      break;
+    case 2:
+      HandValue = "Pair";
+      break;
+    case 3:
+      HandValue = "Double Pair";
+      break;
+    case 4:
+      HandValue = "Trio";
+      break;
+    case 5:
+      HandValue = "Ladder";
+      break;
+    case 6:
+      HandValue = "Color";
+      break;
+    case 7:
+      HandValue = "Full House";
+      break;
+    case 8:
+      HandValue = "Poker";
+      break;
+  }
+  return HandValue;
 };
