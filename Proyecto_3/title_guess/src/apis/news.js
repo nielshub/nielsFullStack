@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Titleguess from "./titleguess";
 import NewsSelector from "./newselector";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./new.scss";
 
 export default class news extends React.Component {

@@ -14,7 +14,7 @@ function App() {
         <Route exact strict path="/fr" render={() => <News country = "France" />}></Route>
         <Route exact strict path="/it" render={() => <News country = "Italia" />}></Route>
         <Route exact strict path="/br" render={() => <News country = "Brasil" />}></Route>
-        <Route exact strict path="/nl" render={() => <News country = "Netherlands" />}></Route>
+        <Route exact strict path="/nl" render={() => <News country = "Netherland" />}></Route>
         <Route exact strict path="/info" render={() => <span>Info for the app</span>}></Route>
       </div>
     </Router>
