@@ -1,0 +1,159 @@
+.image {
+  width: 500px;
+}
+.button {
+  display: inline-block;
+  padding: 0.3em 1.2em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 2em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: all 0.2s;
+  background-color: #4e9af1;
+}
+.button:hover {
+  border-color: rgba(255, 255, 255, 1);
+}
+@media all and (max-width: 30em) {
+  .button {
+    display: block;
+    margin: 0.2em auto;
+  }
+}
+
+.news {
+  display: flex;
+  justify-content: space-around;
+}
+.selector {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+h2 {
+  font: 33px sans-serif;
+  margin-top: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgb(255, 255, 255);
+}
+
+h2.background {
+  position: relative;
+  z-index: 1;
+
+  &:before {
+    border-top: 2px solid #dfdfdf;
+    content: "";
+    margin: 0 auto; /* this centers the line to the full width specified */
+    position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 95%;
+    z-index: -1;
+  }
+
+  span {
+    /* to hide the lines from behind the text, you have to set the background color the same as the container */
+    background: #fff;
+    padding: 0 15px;
+  }
+}
+
+h2.double:before {
+  /* this is just to undo the :before styling from above */
+  border-top: none;
+}
+
+h2.double:after {
+  border-bottom: 1px solid blue;
+  -webkit-box-shadow: 0 1px 0 0 red;
+  -moz-box-shadow: 0 1px 0 0 red;
+  box-shadow: 0 1px 0 0 red;
+  content: "";
+  margin: 0 auto; /* this centers the line to the full width specified */
+  position: absolute;
+  top: 45%;
+  left: 0;
+  right: 0;
+  width: 95%;
+  z-index: -1;
+}
+
+h2.no-background {
+  position: relative;
+  overflow: hidden;
+
+  span {
+    display: inline-block;
+    vertical-align: baseline;
+    zoom: 1;
+    *display: inline;
+    *vertical-align: auto;
+    position: relative;
+    padding: 0 20px;
+
+    &:before,
+    &:after {
+      content: "";
+      display: block;
+      width: 1000px;
+      position: absolute;
+      top: 0.73em;
+      border-top: 1px solid red;
+    }
+
+    &:before {
+      right: 100%;
+    }
+    &:after {
+      left: 100%;
+    }
+  }
+}
+
+h2.no-span {
+  display: table;
+  white-space: nowrap;
+  &:before,
+  &:after {
+    border-top: 3px solid rgb(41, 85, 233);
+    content: "";
+    display: table-cell;
+    position: relative;
+    top: 0.5em;
+    width: 45%;
+  }
+  &:before {
+    right: 1.5%;
+  }
+  &:after {
+    left: 1.5%;
+  }
+}
+
+h4 {
+  color: rgb(255, 255, 255);
+  padding: 0.3em 1.2em;
+  margin: 1;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 1em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: all 0.2s;
+  background-color: #700b2d;
+}

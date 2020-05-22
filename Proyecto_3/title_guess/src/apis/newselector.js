@@ -1,11 +1,12 @@
 import React from "react";
+import "./NewsSelector.css"
 
 export default function NewsSelector(props) {
   return (
     <div>
       <form>
-        <label>
-          Pick the news topic:
+        <label id = "label">
+          <b>Pick the news topic:</b>
           <select
             value={props.value}
             onChange={props.handleChange}

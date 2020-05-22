@@ -40,7 +40,7 @@ export default class TitleGuess extends React.Component {
     return (
       <div className = "analyzeimage">
         <button className="button" color="red" onClick={() => this.clarifai()}>Analyze image</button>
-        <div>
+        <div className = "list">
           <ul>{this.state.imagelist}</ul>
         </div>
       </div>

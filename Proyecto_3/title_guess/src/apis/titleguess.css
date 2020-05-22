@@ -1,3 +1,10 @@
 .analyzeimage{
     margin-top: 30px;
 }
+.list{
+    background-color: aliceblue;
+    padding: 3;
+    margin: 1;
+    border-radius: 0.5em;
+    box-sizing: border-box;
+}
