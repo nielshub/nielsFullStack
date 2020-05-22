@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Titleguess from "./titleguess";
+import NewsSelector from "./newselector";
 import "./new.css";
 
 export default class news extends React.Component {
@@ -17,26 +18,29 @@ export default class news extends React.Component {
     this.setState({ value: event.target.value });
   }
 
+  async getNews() {
+    const url =
+      this.state.value === "general"
+        ? "http://newsapi.org/v2/top-headlines?" +
+          "country=us&" +
+          "apiKey=15ef8d90cef04507b6704adb2194bdc9"
+        : "http://newsapi.org/v2/top-headlines?" +
+          "country=us&" +
+          this.state.value +
+          "&apiKey=15ef8d90cef04507b6704adb2194bdc9";
+    const res = await axios.get(url);
+    const news = res.data.articles;
+    this.setState({ news });
+  }
+
   render() {
     return (
       <div>
         <div className="selector">
-          <div>
-            <form>
-              <label>
-                Pick the news topic: 
-                <select value={this.state.value} onChange={this.handleChange}>
-                  <option value="general">General</option>
-                  <option value="category=business">Business</option>
-                  <option value="category=entertainment">Entertainment</option>
-                  <option value="category=health">Health</option>
-                  <option value="category=science">Science</option>
-                  <option value="category=sports">Sports</option>
-                  <option value="category=technology">Technology</option>
-                </select>
-              </label>
-            </form>
-          </div>
+          <NewsSelector
+            value={this.state.value}
+            handleChange={this.handleChange}
+          ></NewsSelector>
           <div>
             <button
               onClick={() => {
@@ -65,21 +69,5 @@ export default class news extends React.Component {
         </div>
       </div>
     );
-  }
-
-  async getNews() {
-    const url =
-      this.state.value === "general"
-        ? "http://newsapi.org/v2/top-headlines?" +
-          "country=us&" +
-          "apiKey=15ef8d90cef04507b6704adb2194bdc9"
-        : "http://newsapi.org/v2/top-headlines?" +
-          "country=us&" +
-          this.state.value +
-          "&apiKey=15ef8d90cef04507b6704adb2194bdc9";
-    const res = await axios.get(url);
-    console.log(res);
-    const news = res.data.articles;
-    this.setState({ news });
   }
 }

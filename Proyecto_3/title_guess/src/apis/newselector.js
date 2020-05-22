@@ -1,27 +1,25 @@
 import React from "react";
-import "./NewsSelector.css";
 
-export default class NewsSelector extends React.Component {
- 
-  render() {
-    return (
+export default function NewsSelector(props) {
+  return (
+    <div>
       <form>
         <label>
           Pick the news topic:
           <select
-            value={this.props.value}
-            onChange={()=>this.props.handleChangeSelector}
+            value={props.value}
+            onChange={props.handleChange}
           >
-            <option value="">General</option>
-            <option value="Business">Business</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Health">Health</option>
-            <option value="Science">Science</option>
-            <option value="Sports">Sports</option>
-            <option value="Technology">Technology</option>
+            <option value="general">General</option>
+            <option value="category=business">Business</option>
+            <option value="category=entertainment">Entertainment</option>
+            <option value="category=health">Health</option>
+            <option value="category=science">Science</option>
+            <option value="category=sports">Sports</option>
+            <option value="category=technology">Technology</option>
           </select>
         </label>
       </form>
-    );
-  }
+    </div>
+  );
 }
