@@ -2,8 +2,18 @@ import React from "react";
 import axios from "axios";
 import Titleguess from "./titleguess";
 import NewsSelector from "./newselector";
-import { Link } from "react-router-dom";
+import Newslist from "./newslist";
+import { Route, Link } from "react-router-dom";
 import "./new.scss";
+
+function Topic({ match }) {
+  const topic = match.params.index;
+  return (
+    <div>
+      <h2>{topic}</h2>
+    </div>
+  );
+}
 
 export default class news extends React.Component {
   constructor(props) {
@@ -11,15 +21,21 @@ export default class news extends React.Component {
     this.state = {
       news: [],
       value: "general",
+      inputValue: "",
+      country: "",
     };
     this.handleChange = this.handleChange.bind(this);
   }
+
+  newsFilteronChange = (event) => {
+    this.setState({ inputValue: event.target.value });
+  };
 
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
 
-  async getNews() {
+  componentDidMount() {
     const country =
       this.props.country === "United States"
         ? "us"
@@ -34,11 +50,15 @@ export default class news extends React.Component {
         : this.props.country === "Netherland"
         ? "nl"
         : "";
+    this.setState({ country });
+  }
+
+  async getNews() {
     const url =
       this.state.value === "general"
         ? "http://newsapi.org/v2/top-headlines?" +
           "country=" +
-          country +
+          this.state.country +
           "&apiKey=15ef8d90cef04507b6704adb2194bdc9"
         : "http://newsapi.org/v2/top-headlines?" +
           "country=us&" +
@@ -51,6 +71,12 @@ export default class news extends React.Component {
   }
 
   render() {
+    const filteredNews = this.state.news.filter((shortnew) => {
+      return shortnew.title
+        .toLowerCase()
+        .includes(this.state.inputValue.toLowerCase());
+    });
+
     return (
       <div>
         <h2 className="no-span">Custom News in {this.props.country}</h2>
@@ -72,13 +98,19 @@ export default class news extends React.Component {
               Get News
             </button>
           </div>
+          <Newslist
+            inputValue={this.state.inputValue}
+            newsFilteronChange={this.newsFilteronChange}
+          ></Newslist>
         </div>
         <div>
-          {this.state.news.map((obj, index) => {
+          {filteredNews.map((obj, index) => {
             return (
               <div key={index} className="news">
                 <div>
-                  <h4>{obj.title}</h4>
+                  <Link to={`${this.state.country}/${index}`}>
+                    <h4>{obj.title}</h4>
+                  </Link>
                   <img src={obj.urlToImage} alt="" className="image" />
                 </div>
                 <div className="analyzeimage">
@@ -88,6 +120,10 @@ export default class news extends React.Component {
             );
           })}
         </div>
+        <Route
+          path={`/${this.state.country}/:index`}
+          component={Topic}
+        />
       </div>
     );
   }

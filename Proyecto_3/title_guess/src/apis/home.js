@@ -50,6 +50,9 @@ export default function home(props) {
           <Link to="/nl">
             <button className="button">Netherland</button>
           </Link>
+          <Link to="/topics">
+            <button className="button">App Info</button>
+          </Link>
         </div>
       </div>
     </div>

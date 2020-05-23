@@ -6,7 +6,7 @@ export default function NewsSelector(props) {
     <div>
       <form>
         <label id = "label">
-          <b>Pick the news topic:</b>
+          <b>Pick the news topic: </b>
           <select
             value={props.value}
             onChange={props.handleChange}
