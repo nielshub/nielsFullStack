@@ -3,17 +3,9 @@ import axios from "axios";
 import Titleguess from "./titleguess";
 import NewsSelector from "./newselector";
 import Newslist from "./newslist";
-import { Route, Link } from "react-router-dom";
+import Readmore from "./readmore";
+import { Link } from "react-router-dom";
 import "./new.scss";
-
-function Topic({ match }) {
-  const topic = match.params.index;
-  return (
-    <div>
-      <h2>{topic}</h2>
-    </div>
-  );
-}
 
 export default class news extends React.Component {
   constructor(props) {
@@ -23,6 +15,7 @@ export default class news extends React.Component {
       value: "general",
       inputValue: "",
       country: "",
+      isBoxVisible: false,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -108,10 +101,9 @@ export default class news extends React.Component {
             return (
               <div key={index} className="news">
                 <div>
-                  <Link to={`${this.state.country}/${index}`}>
-                    <h4>{obj.title}</h4>
-                  </Link>
+                  <h4>{obj.title}</h4>
                   <img src={obj.urlToImage} alt="" className="image" />
+                  <Readmore description={obj.description}></Readmore>
                 </div>
                 <div className="analyzeimage">
                   <Titleguess imageUrl={obj.urlToImage}></Titleguess>
@@ -120,10 +112,6 @@ export default class news extends React.Component {
             );
           })}
         </div>
-        <Route
-          path={`/${this.state.country}/:index`}
-          component={Topic}
-        />
       </div>
     );
   }
