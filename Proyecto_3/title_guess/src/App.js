@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import News from "./apis/news";
 import Home from "./apis/home";
+import { Provider } from "react-redux";
+import { store } from "./store";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const topics = [
@@ -14,6 +16,11 @@ const topics = [
         name: "Types",
         id: "type",
         description: "6 key countries. US / FR / IT / NL / BR / JP",
+      },
+      {
+        name: "News Category",
+        id: "category",
+        description: "Only works for US news. For toher countries only can get info from general category",
       },
       {
         name: "Lenguage",
@@ -123,6 +130,7 @@ function Topics({ match }) {
 
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <div className="App">
         <Route exact strict path="/" render={() => <Home />}></Route>
@@ -163,6 +171,7 @@ function App() {
         <Route path="/topics" component={Topics}></Route>
       </div>
     </Router>
+    </Provider>
   );
 }
 

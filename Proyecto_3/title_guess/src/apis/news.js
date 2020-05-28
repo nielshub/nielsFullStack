@@ -6,27 +6,22 @@ import Newslist from "./newslist";
 import Readmore from "./readmore";
 import { Link } from "react-router-dom";
 import "./new.scss";
+import { connect } from "react-redux";
 
-export default class news extends React.Component {
+class news extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       news: [],
-      value: "general",
       inputValue: "",
       country: "",
       isBoxVisible: false,
     };
-    this.handleChange = this.handleChange.bind(this);
   }
 
   newsFilteronChange = (event) => {
     this.setState({ inputValue: event.target.value });
   };
-
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
 
   componentDidMount() {
     const country =
@@ -48,17 +43,16 @@ export default class news extends React.Component {
 
   async getNews() {
     const url =
-      this.state.value === "general"
+      this.props.value.value === "general"
         ? "http://newsapi.org/v2/top-headlines?" +
           "country=" +
           this.state.country +
           "&apiKey=15ef8d90cef04507b6704adb2194bdc9"
         : "http://newsapi.org/v2/top-headlines?" +
           "country=us&" +
-          this.state.value +
+          this.props.value.value +
           "&apiKey=15ef8d90cef04507b6704adb2194bdc9";
     const res = await axios.get(url);
-    console.log(res);
     const news = res.data.articles;
     this.setState({ news });
   }
@@ -77,10 +71,7 @@ export default class news extends React.Component {
           <Link to="/">
             <button className="button"> Home </button>
           </Link>
-          <NewsSelector
-            value={this.state.value}
-            handleChange={this.handleChange}
-          ></NewsSelector>
+          <NewsSelector></NewsSelector>
           <div>
             <button
               onClick={() => {
@@ -116,3 +107,8 @@ export default class news extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { value: state.value };
+};
+export default connect(mapStateToProps)(news);
